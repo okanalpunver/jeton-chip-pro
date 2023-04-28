@@ -15,19 +15,16 @@
 
         @component('admin._components.portlet')
 
-            <table class="table table-responsive">
+            <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th></th>
                     <th>İsim</th>
                     <th>Email</th>
                     <th>Telefon</th>
+                    <th></th>
                 </tr>
                 </thead>
-
                 <tbody>
-                <table class="table table-responsive">
-                    <tbody>
                     @foreach ($user as $item)
                         <tr>
                             <td>
@@ -39,63 +36,31 @@
                             <td>
                                 {{$item->phone}}
                             </td>
-                            <td>
-                                <button data-toggle="collapse" data-target="#demo-{{$item->id}}"
-                                        class="btn btn-default btn-xs"><span
-                                            class="glyphicon glyphicon-eye-open"></span></button>
-                            </td>
+                           @if(count($item->items))
+                                <td>
+                                    <button data-toggle="collapse" data-target="#demo-{{$item->id}}"
+                                            class="btn btn-default btn-xs"><span
+                                                class="glyphicon glyphicon-eye-open"></span></button>
+                                </td>
+
+                           @endif
                         </tr>
                         @if (count($item->items))
                             <tr>
                                 <td colspan="4">
                                     <div id="demo-{{$item->id}}" class="collapse">
-                                        <table class="table table-responsive">
-                                            <tbody>
-                                            @foreach ($item->items as $child)
-                                                <table class="table table-responsive">
-                                                    <tbody>
-                                                    {!! generateTreeView($item->items) !!}
-                                                    </tbody>
-                                                </table>
-                                            @endforeach
-                                            </tbody>
-                                        </table>
+                                        @foreach ($item->items as $child)
+                                            <table class="table table-bordered">
+                                                <tbody>
+                                                {!! generateTreeView($item->items) !!}
+                                                </tbody>
+                                            </table>
+                                        @endforeach
                                     </div>
                                 </td>
                             </tr>
                         @endif
                     @endforeach
-                    </tbody>
-                </table>
-
-                @php
-                    function generateTreeView($data) {
-                        $html = '';
-                        foreach ($data as $item) {
-                            $html .= '<tr>';
-                            $html .= '<td>' . $item->name . '</td>';
-                            $html .= '<td>' . $item->email . '</td>';
-                            $html .= '<td>' . $item->phone . '</td>';
-                            $html .= '<td><button data-toggle="collapse" data-target="#demo-' . $item->id . '" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>';
-                            $html .= '</tr>';
-                            if (count($item->children)) {
-                                $html .= '<tr>';
-                                $html .= '<td colspan="4">';
-                                $html .= '<div id="demo-' . $item->id . '" class="collapse">';
-                                $html .= '<table class="table table-responsive">';
-                                $html .= '<tbody>';
-                                $html .= generateTreeView($item->children);
-                                $html .= '</tbody>';
-                                $html .= '</table>';
-                                $html .= '</div>';
-                                $html .= '</td>';
-                                $html .= '</tr>';
-                            }
-                        }
-                        return $html;
-                    }
-                @endphp
-
                 </tbody>
             </table>
 
@@ -103,3 +68,32 @@
     @endcomponent
 
 @endsection
+
+
+@php
+    function generateTreeView($data) {
+        $html = '';
+        foreach ($data as $item) {
+            $html .= '<tr>';
+            $html .= '<td>' . $item->name . '</td>';
+            $html .= '<td>' . $item->email . '</td>';
+            $html .= '<td>' . $item->phone . '</td>';
+            $html .= '<td><button data-toggle="collapse" data-target="#demo-' . $item->id . '" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>';
+            $html .= '</tr>';
+            if (count($item->children)) {
+                $html .= '<tr>';
+                $html .= '<td colspan="4">';
+                $html .= '<div id="demo-' . $item->id . '" class="collapse">';
+                $html .= '<table class="table table-bordered">';
+                $html .= '<tbody>';
+                $html .= generateTreeView($item->children);
+                $html .= '</tbody>';
+                $html .= '</table>';
+                $html .= '</div>';
+                $html .= '</td>';
+                $html .= '</tr>';
+            }
+        }
+        return $html;
+    }
+@endphp
