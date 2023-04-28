@@ -13,6 +13,8 @@ return [
     |
     */
 
+    'site' => env('APP_DOMAIN', 'theme-1'),
+
     'name' => env('APP_NAME', 'Laravel'),
 
     /*

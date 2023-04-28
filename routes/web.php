@@ -17,7 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 $currentSite = $_SERVER['HTTP_HOST'] ?? null;
 
+
 $currentSite = \App\Models\Site::where('fqdn', $currentSite)->first();
+
 
 if ($currentSite) {
     App::setLocale($currentSite->lang);

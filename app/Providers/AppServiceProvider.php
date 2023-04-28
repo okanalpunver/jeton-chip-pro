@@ -22,12 +22,16 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
-        $host = request()->getHost();
+        $host = request()->getHttpHost();
+
 
         if (!Str::contains($host, 'admin')) {
-            $this->app->singleton('site', function () use ($host) {
+
+
+           $this->app->singleton('site', function () use ($host) {
                 return Site::where('fqdn', $host)->first();
             });
+
         }
     }
 
