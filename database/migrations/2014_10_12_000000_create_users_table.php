@@ -13,6 +13,8 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('sites');
+
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('site_id')->index();
