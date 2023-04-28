@@ -16,6 +16,7 @@
         "pusher/pusher-php-server": "~3.0",
         "spatie/laravel-html": "^2.22",
         "spatie/laravel-permission": "^2.37",
+        "typicms/nestablecollection": "^1.2",
         "watson/active": "^3.1",
         "yajra/laravel-datatables-oracle": "~9.0"
     },

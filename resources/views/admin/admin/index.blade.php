@@ -1,7 +1,7 @@
 @extends('admin._layouts.index')
 
 @section('content')
-    
+
     @component('admin._components.subheader', [
         'title' => $label,
         'desc' => 'Description'
@@ -12,9 +12,9 @@
     @endcomponent
 
     @component('admin._components.content')
-        
+
         @component('admin._components.portlet')
-        
+
             @component('admin._components.table', [
                 'fields' => [
                     '#',
@@ -25,11 +25,11 @@
                     ''
                 ]
             ])
-                
+
             @endcomponent
-            
+
         @endcomponent
-        
+
     @endcomponent
 
 @endsection
@@ -49,7 +49,7 @@
                 {data: 'email', name: 'email'},
                 {data: 'created_at', name: 'created_at', render: $.fn.dataTable.render.dateTime()},
                 {data: 'updated_at', name: 'updated_at', render: $.fn.dataTable.render.dateTime()},
-                {data: 'id', sortable: false, searchable: false, 
+                {data: 'id', sortable: false, searchable: false,
                     render: function(data, type, row){
                         return $.fn.dataTable.render.action(data, type, row, '{{ route("admin.$routeBase.index") }}');
                     }

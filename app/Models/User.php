@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use TypiCMS\NestableTrait;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, NestableTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'password', 'site_id'
+        'name', 'email', 'phone', 'password', 'site_id', 'parent_id', 'ref_code'
     ];
 
     /**
@@ -40,5 +41,10 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany('App\Models\Order');
+    }
+
+    public function children()
+    {
+        return $this->hasMany('App\Models\User', 'parent_id');
     }
 }

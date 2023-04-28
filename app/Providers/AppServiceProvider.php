@@ -26,12 +26,9 @@ class AppServiceProvider extends ServiceProvider
 
 
         if (!Str::contains($host, 'admin')) {
-
-
            $this->app->singleton('site', function () use ($host) {
                 return Site::where('fqdn', $host)->first();
             });
-
         }
     }
 

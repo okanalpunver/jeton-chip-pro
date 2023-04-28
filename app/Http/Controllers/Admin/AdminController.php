@@ -17,6 +17,10 @@ class AdminController extends BaseController
 
     public $routeBase = 'admin';
 
+    public function getNestedUsers(){
+        return response()->json(\App\Models\User::query()->get()->nest());
+    }
+
     public function store(AdminRequest $request)
     {
         $this->model::create([

@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+
 Route::get('/', 'DashboardController@index')->name('dashboard.index');
+
+Route::get('admin/nested-user', 'UserController@getNestedUsers')->name('admin.api.nestedUsers');
 
 Route::post('api/admin', 'AdminController@api')->name('admin.api');
 Route::resource('admin', 'AdminController')->parameters([
