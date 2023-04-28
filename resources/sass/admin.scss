@@ -1,0 +1,7 @@
+@import '~flatpickr/dist/flatpickr';
+// @import '~flatpickr/dist/themes/airbnb.css';
+@import './components/flatpickr.css';
+
+.kt-aside--minimize .kt-aside__brand .kt-aside__brand-logo h5 {
+    display: none;
+}

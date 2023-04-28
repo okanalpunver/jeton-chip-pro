@@ -1,0 +1,184 @@
+@import "variables";
+
+@border-radius: 0;
+
+@import "skin";	
+
+// Menu
+html {
+	#header {
+		&.custom-header-style-1 {
+			.header-body {
+				.header-nav-main {
+					nav {
+						> ul {
+							> li {
+								> span {
+									.item-two {
+										color: @color-primary;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@media (max-width: 991px) {
+	html {
+		#header {
+			&.custom-header-style-1 {
+				.custom-sm-btn-header-style-1 {
+					> .btn:not(.header-btn-collapse-nav) {
+						color: @color-primary;
+
+						&:hover {
+							color: #FFF;
+						}
+					}
+				}
+
+				.header-body {
+					.header-nav-main {
+						nav {
+							> ul {
+								> li {
+									> a {
+										&.item-original.active {
+											color: @color-primary;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+// Custom Overlay Style
+.custom-overlay-style-1 {
+	&:before {
+		box-shadow: 30px 0px 220px 220px fade(@color-primary, 90%);
+	}
+
+	&:after {
+		background: fade(@color-primary, 40%);
+	}
+}
+
+.custom-overlay-style-2 {
+	&:before {
+		background: fade(@color-quaternary, 60%);
+	}
+}
+
+// Custom Thumb Info
+.custom-thumb-info-1 {
+	.thumb-info-wrapper {
+		&:after {
+			background: fade(@color-quaternary, 80%);
+		}
+	}
+}
+
+// Owl Carousel
+.owl-carousel {
+	&.custom-arrows-style-1 {
+		.owl-nav {
+			button[class*="owl-"] {
+			    background-color: @color-quaternary;
+
+			    &:active:hover, &:active:focus {
+			    	background-color: @color-quaternary;
+			    }
+			}
+		}
+	}
+}
+
+.heading-custom {
+	padding-top: 1em;
+	text-align: center;
+	font-size: 2.5em !important;
+	color: #ffffff;
+}
+
+.heading-custom strong {
+	color: @color-primary;
+}
+
+.custom-heading-input {
+	justify-content: center;
+}
+
+hr.tall {
+	margin: 30px 0;
+	background: rgb(33, 33, 33) !important;
+}
+
+.custom-chip {
+	color: #ffffff;
+	font-size: 1.40em !important;
+}
+
+.h2-testimonials {
+	color: #ffffff;
+}
+
+html .bg-color-dark, html .bg-dark {
+	background-color: #151515 !important;
+}
+
+
+html .bg-color-dark h2, html .bg-dark  h2,
+html .bg-color-dark strong, html .bg-dark  strong{
+	color: #aaaaaa !important
+}
+
+body {
+	background-color: #0a0a0a;
+}
+
+.cart-qty {
+	position: relative;
+	top: -20px;
+	right: -16px;
+	background: white;
+	color: red;
+	border-radius: 50%;
+	width: 14px;
+	font-size: 11px;
+	height: 14px;
+	line-height: 14px;
+	text-align: center; 
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: @color-primary !important;
+    background-color: @color-primary !important;
+}
+
+.custom-control-input:focus~.custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem lighten(@color-primary, 20%) !important;
+}
+
+.bank-cards {
+	// display: flex;
+	// justify-content: center;
+	background-color: #000000;
+}
+
+.bank-cards img {
+	margin: 20px 0;
+}
+
+.bank-cards .col {
+	text-align: center;
+}

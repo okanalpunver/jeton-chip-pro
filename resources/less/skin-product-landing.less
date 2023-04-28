@@ -1,0 +1,48 @@
+@import "variables";
+
+@border-radius: 3;
+
+@color-primary: #f4544c;
+
+@color-secondary: #ef4b35;
+
+@color-tertiary: #2baab1;
+
+@color-quaternary: #383f48;
+
+@import "skin";
+
+#header .header-nav-features .header-nav-features-cart .cart-info .cart-qty {
+    background-color: @color-primary;
+}
+
+.hex-to-rgba (@color, @alpha: 1) {
+	@hex-to-rgba-red: red(@color);
+	@hex-to-rgba-green: green(@color);
+	@hex-to-rgba-blue: blue(@color);
+	@rgba: rgba(@hex-to-rgba-red, @hex-to-rgba-green, @hex-to-rgba-blue, @alpha);
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: lighten(@color-primary, 25%);
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem  lighten(@color-primary, 35%);
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: @color-primary;
+    background-color: @color-primary;
+}
+
+.custom-control-input:focus~.custom-control-label::before {
+    box-shadow: 0 0 0 0.2rem lighten(@color-primary, 35%);
+}
+
+@media (max-width: 991px) {
+    #header .header-nav-main nav > ul li a {
+        padding: 1px 8px;
+    }
+}
