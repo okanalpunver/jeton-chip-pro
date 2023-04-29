@@ -62,12 +62,22 @@
                                                     {{ Auth::user()->name }}
                                                 </a>
 
+
+
                                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                    <li><a class="dropdown-item" href="{{ route('web.logout') }}"
+                                                    <li><a class="dropdown-item" href="#"
                                                     onclick="event.preventDefault();
-                                                                    document.getElementById('logout-form').submit();">
-                                                        {{ __('Logout') }}
+                                                    alert({{\Illuminate\Support\Facades\Auth::user()->ref_code}})
+                                                    ">
+                                                        Referans Linki
                                                     </a>
+                                                    </li>
+
+                                                    <li><a class="dropdown-item" href="{{ route('web.logout') }}"
+                                                           onclick="event.preventDefault();
+                                                                    document.getElementById('logout-form').submit();">
+                                                            {{ __('Logout') }}
+                                                        </a>
                                                     </li>
                                                     <form id="logout-form" action="{{ route('web.logout') }}" method="POST" style="display: none;">
                                                         @csrf
@@ -93,3 +103,5 @@
         </div>
     </div>
 </header>
+
+
