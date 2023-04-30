@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Web\Auth;
 
-use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -53,32 +54,71 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'numeric'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name' => [
+                'required',
+                'string',
+                'max:255'
+            ],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users'
+            ],
+            'phone' => [
+                'required',
+                'numeric'
+            ],
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed'
+            ],
         ]);
     }
 
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param array $data
      * @return \App\Models\User
      */
     protected function create(array $data)
     {
-        return app('site')->users()->create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $parentId = null;
+        if (isset($data['ref'])) {
+
+            $user = User::query()
+                        ->where('ref_code', $data['ref'])
+                        ->first();
+
+            if (!$user) {
+                return redirect()
+                    ->back()
+                    ->with('error', 'Invalid referral code');
+            }
+
+            $parentId = $user->id;
+
+        }
+
+        return app('site')
+            ->users()
+            ->create([
+                         'name' => $data['name'],
+                         'email' => $data['email'],
+                         'phone' => $data['phone'],
+                         'parent_id' => $parentId,
+                         'ref_code' => Str::uuid(),
+                         'password' => Hash::make($data['password']),
+                     ]);
     }
 }

@@ -2,6 +2,9 @@
 
 @section('content')
 
+    <link rel="stylesheet" href="/treeData/css/treeData.css"/>
+    <script src="/treeData/js/treeData.js"></script>
+
     @component('admin._components.subheader', [
         'title' => 'Normal Kullanıcılar',
         'desc' => 'Description'
@@ -15,52 +18,54 @@
 
         @component('admin._components.portlet')
 
-            <table class="table table-bordered">
+            <table class="table responsive">
                 <thead>
                 <tr>
-                    <th>İsim</th>
-                    <th>Email</th>
-                    <th>Telefon</th>
-                    <th></th>
+                    <td>İsim</td>
+                    <td>Email</td>
+                    <td>Telefon</td>
+                    <td></td>
+                    <td></td>
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach ($user as $item)
-                        <tr>
-                            <td>
-                                {{$item->name}}
-                            </td>
-                            <td>
-                                {{$item->email}}
-                            </td>
-                            <td>
-                                {{$item->phone}}
-                            </td>
-                           @if(count($item->items))
-                                <td>
-                                    <button data-toggle="collapse" data-target="#demo-{{$item->id}}"
-                                            class="btn btn-default btn-xs"><span
-                                                class="glyphicon glyphicon-eye-open"></span></button>
-                                </td>
+                   @foreach($users as $user)
 
-                           @endif
-                        </tr>
-                        @if (count($item->items))
-                            <tr>
-                                <td colspan="4">
-                                    <div id="demo-{{$item->id}}" class="collapse">
-                                        @foreach ($item->items as $child)
-                                            <table class="table table-bordered">
-                                                <tbody>
-                                                {!! generateTreeView($item->items) !!}
-                                                </tbody>
-                                            </table>
-                                        @endforeach
-                                    </div>
-                                </td>
-                            </tr>
-                        @endif
-                    @endforeach
+                       <tr>
+                           <td>{{$user->name}}</td>
+                           <td>{{$user->email}}</td>
+                           <td>{{$user->phone}}</td>
+                           <td><a href="{{route('admin.admin.api.nestedUsersList',$user->id)}}" class="btn btn-primary">Hiyerarşiyi Göster</a></td>
+                           <td>
+                              @if($user->status)
+                                   <form action="/admin/user/status/active/{{$user->id}}" method="POST">
+                                       @csrf
+                                       <button class="btn btn-danger">Kullanıcıyı Pasifleştir</button>
+                                   </form>
+                               @else
+                                   <form action="/admin/user/status/passive/{{$user->id}}" method="POST">
+                                       @csrf
+                                       <button class="btn btn-success">Kullanıcıyı Aktifleştir</button>
+                                   </form>
+                              @endif
+                           </td>
+                           <td>
+                               @if(\App\Models\Seller::query()->where('email', $user->email)->first())
+
+                                       <button class="btn btn-success">Satıcı</button>
+                               @else
+                                   <form action="/admin/user/seller/{{$user->id}}" method="POST">
+                                       @csrf
+                                       <button class="btn btn-dark">Satıcı Yap</button>
+                                   </form>
+
+                               @endif
+
+
+                           </td>
+                       </tr>
+
+                   @endforeach
                 </tbody>
             </table>
 
@@ -70,30 +75,3 @@
 @endsection
 
 
-@php
-    function generateTreeView($data) {
-        $html = '';
-        foreach ($data as $item) {
-            $html .= '<tr>';
-            $html .= '<td>' . $item->name . '</td>';
-            $html .= '<td>' . $item->email . '</td>';
-            $html .= '<td>' . $item->phone . '</td>';
-            $html .= '<td><button data-toggle="collapse" data-target="#demo-' . $item->id . '" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span></button></td>';
-            $html .= '</tr>';
-            if (count($item->children)) {
-                $html .= '<tr>';
-                $html .= '<td colspan="4">';
-                $html .= '<div id="demo-' . $item->id . '" class="collapse">';
-                $html .= '<table class="table table-bordered">';
-                $html .= '<tbody>';
-                $html .= generateTreeView($item->children);
-                $html .= '</tbody>';
-                $html .= '</table>';
-                $html .= '</div>';
-                $html .= '</td>';
-                $html .= '</tr>';
-            }
-        }
-        return $html;
-    }
-@endphp

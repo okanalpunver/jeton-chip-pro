@@ -9,7 +9,7 @@ use TypiCMS\NestableTrait;
 
 class User extends Authenticatable
 {
-    use Notifiable, NestableTrait;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -46,5 +46,10 @@ class User extends Authenticatable
     public function children()
     {
         return $this->hasMany('App\Models\User', 'parent_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Models\User', 'parent_id');
     }
 }

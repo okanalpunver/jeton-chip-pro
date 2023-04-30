@@ -8,6 +8,9 @@
         <div class="row mt-4">
             <div class="col-md-7 col-lg-9">
                 <h1 class="font-weight-bold text-color-primary mb-5">{{ __('Login') }}</h1>
+
+
+
                 <form method="POST" class="mb-5" action="{{ route('web.login') }}">
                     @csrf
 
@@ -65,6 +68,14 @@
                         </div>
                     </div>
                 </form>
+
+
+                @if(\Illuminate\Support\Facades\Session::has('error'))
+
+                    <span class="alert alert-danger"> {{\Illuminate\Support\Facades\Session::get('error')}}</span>
+
+                @endif
+
             </div> 
             <div class="col-md-5 col-lg-3">
                 <img src="/frontend/img/zynga-lady.png" alt="">

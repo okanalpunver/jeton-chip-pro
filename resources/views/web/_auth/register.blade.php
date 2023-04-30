@@ -53,6 +53,7 @@
                         </div>
                     </div>
 
+
                     <div class="form-group row">
                         <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
@@ -66,6 +67,10 @@
                             @enderror
                         </div>
                     </div>
+
+                    @if(isset($_GET['ref']))
+                        <input type="hidden" name="ref" value="{{$_GET['ref']}}">
+                    @endif
 
                     <div class="form-group row">
                         <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>

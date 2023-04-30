@@ -19,12 +19,21 @@ class AsideMenuRepository
             ['section' => 'Yönetim'],
 
             [
-                'title' => 'Kullanıcılar',
+                'title' => 'Admin Kullanıcılar',
                 'root' => true,
                 'icon' => icon('Group'),
                 'page' => route('admin.admin.index'),
                 'bullet' => 'dot',
                 'active' => is_active(['admin.admin.*']),
+            ],
+
+            [
+                'title' => 'Kullanıcılar',
+                'root' => true,
+                'icon' => icon('Group'),
+                'page' => route('admin.admin.api.nestedUsers'),
+                'bullet' => 'dot',
+                'active' => is_active(['admin.admin.api.nestedUsers']),
             ],
 
             [

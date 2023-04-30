@@ -21,6 +21,20 @@ Route::get('/', 'DashboardController@index')->name('dashboard.index');
 
 Route::get('admin/nested-user', 'UserController@getNestedUsers')->name('admin.api.nestedUsers');
 
+
+
+Route::get('admin/nested-user/list/{parentId}', 'UserController@getNestedUserList')->name('admin.api.nestedUsersList');
+
+
+Route::get('admin/nested-user/api/{id}', 'UserController@getUserHierarchy')->name('admin.api.nestedUsers.api');
+
+
+Route::post('admin/user/status/active/{id}', 'UserController@updateStatusAsActive')->name('admin.api.status.update.active');
+Route::post('admin/user/status/passive/{id}', 'UserController@updateStatusAsPassive')->name('admin.api.status.update.passive');
+Route::post('admin/user/seller/{id}', 'UserController@updateUserAsSeller')->name('admin.api.status.update.seller');
+
+
+
 Route::post('api/admin', 'AdminController@api')->name('admin.api');
 Route::resource('admin', 'AdminController')->parameters([
     'admin' => 'id',

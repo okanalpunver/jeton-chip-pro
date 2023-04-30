@@ -66,9 +66,8 @@
 
                                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                                     <li><a class="dropdown-item" href="#"
-                                                    onclick="event.preventDefault();
-                                                    alert({{\Illuminate\Support\Facades\Auth::user()->ref_code}})
-                                                    ">
+                                                    onclick="
+                                                 copyRefCode(' {{ env('APP_URL') . "/register" . "?ref=" . \Illuminate\Support\Facades\Auth::user()->ref_code   }}')">
                                                         Referans Linki
                                                     </a>
                                                     </li>
@@ -104,4 +103,16 @@
     </div>
 </header>
 
+            <script>
+               function copyRefCode(param){
+                   // Get the text field
+                   var copyText = param;
+
+                   // Copy the text inside the text field
+                   navigator.clipboard.writeText(copyText);
+
+                   // Alert the copied text
+                   alert("Referans linkiniz: " + copyText);
+                }
+            </script>
 
