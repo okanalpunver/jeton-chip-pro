@@ -85,15 +85,29 @@ class UserController extends BaseController
     public function getUserHierarchy($id)
     {
         $user = \App\Models\User::query()
-                                ->with('children')
+                                ->with('parent')
                                 ->where('id', $id)
                                 ->first();
 
-        $this->recursiveUserMap($user, $this->array);
+
+        $rootUser = $this->fetchRootUser($user);
+
+
+        $this->recursiveUserMap($rootUser, $this->array);
 
 
         return response()->json($this->array);
 
+    }
+
+    public function fetchRootUser($user){
+        if($user->parent_id == null){
+            return $user;
+        }
+        $parentUser = \App\Models\User::query()
+        ->with('parent')->where('id', $user->parent_id)->first();
+
+        return $this->fetchRootUser($parentUser);
     }
 
     public function recursiveUserMap($user, $array)
