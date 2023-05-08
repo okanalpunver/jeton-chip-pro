@@ -24,6 +24,7 @@ Route::get('admin/nested-user', 'UserController@getNestedUsers')->name('admin.ap
 
 
 Route::get('admin/nested-user/list/{parentId}', 'UserController@getNestedUserList')->name('admin.api.nestedUsersList');
+Route::get('admin/nested-user/list/users/{id}', 'UserController@show')->name('users.show');;
 
 
 Route::get('admin/nested-user/api/{id}', 'UserController@getUserHierarchy')->name('admin.api.nestedUsers.api');

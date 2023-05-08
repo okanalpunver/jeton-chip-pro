@@ -11,7 +11,7 @@ function TreeData (data, select) {
 }
 
 function buildTree (obj, node) {
-    var treeString = "<li ><a href='#'>" + obj[node].value + "</a>";
+    var treeString = "<li ><a href='users/" + node + "'>" + obj[node].value + "</a>";
     var sons = [];
     for (var i in obj) {
         if (obj[i].parent == node)

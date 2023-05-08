@@ -19,6 +19,13 @@ class UserController extends BaseController
 
     private $array = [];
 
+
+    public function show($id)
+    {
+        $user = User::query()->find($id);
+        return view('admin.users.user_detail', compact('user'));
+    }
+
     public function getNestedUsers()
     {
         $users = User::query()
